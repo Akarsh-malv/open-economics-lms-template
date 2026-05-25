@@ -1,4 +1,4 @@
-// src/app/api/draft-mode/disable/route.ts
+export const dynamic = "force-dynamic";
 
 import { draftMode } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";

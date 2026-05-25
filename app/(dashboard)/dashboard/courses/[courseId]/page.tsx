@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import getCourseById from "@/sanity/lib/courses/getCourseById";
 import { redirect } from "next/navigation";
 

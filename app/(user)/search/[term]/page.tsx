@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { Search } from "lucide-react";
 import { CourseCard } from "@/components/CourseCard";
 import { searchCourses } from "@/sanity/lib/courses/searchCourses";
