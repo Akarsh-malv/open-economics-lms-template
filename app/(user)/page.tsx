@@ -3,10 +3,14 @@ import { CourseCard } from "@/components/CourseCard";
 import { getCourses } from "@/sanity/lib/courses/getCourses";
 
 export const dynamic = "force-dynamic";
-export const revalidate = 3600; // revalidate at most every hour
 
 export default async function Home() {
-  const courses = await getCourses();
+  let courses: Awaited<ReturnType<typeof getCourses>> = [];
+  try {
+    courses = await getCourses();
+  } catch {
+    courses = [];
+  }
 
   return (
     <div className="min-h-screen bg-background">

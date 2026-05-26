@@ -15,17 +15,22 @@ export default async function MyCoursesPage() {
     return redirect("/");
   }
 
-  const enrolledCourses = await getEnrolledCourses(user.id);
+  let enrolledCourses: Awaited<ReturnType<typeof getEnrolledCourses>> = [];
+  try {
+    enrolledCourses = await getEnrolledCourses(user.id);
+  } catch {
+    enrolledCourses = [];
+  }
 
-  // Get progress for each enrolled course
   const coursesWithProgress = await Promise.all(
     enrolledCourses.map(async ({ course }) => {
       if (!course) return null;
-      const progress = await getCourseProgress(user.id, course._id);
-      return {
-        course,
-        progress: progress.courseProgress,
-      };
+      try {
+        const progress = await getCourseProgress(user.id, course._id);
+        return { course, progress: progress.courseProgress };
+      } catch {
+        return { course, progress: 0 };
+      }
     })
   );
 
